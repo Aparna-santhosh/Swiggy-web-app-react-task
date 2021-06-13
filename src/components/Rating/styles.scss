@@ -1,0 +1,23 @@
+@import "../../styles/variables";
+
+.rating {
+    display: flex;
+    align-items: center;
+    padding: 0.3rem;
+    color: $text-color;
+    font-weight: 700;
+    font-size: 0.93rem;
+    &--visible {
+        background: $rating-button-color;
+        color: white;
+        .rating__star-image {
+            filter: invert(1);
+        }
+    }
+    &__star-image {
+        width: 17px;
+        height: 17px;
+        filter: invert(0.6);
+        margin-right: 0.4rem;
+    }
+}

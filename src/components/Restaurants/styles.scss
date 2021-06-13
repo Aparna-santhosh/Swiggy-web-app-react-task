@@ -1,0 +1,26 @@
+@import "../../styles/variables";
+
+.restaurant-container {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px solid $border-color;
+    padding-bottom: 2rem;
+
+    &__title {
+        margin:1rem;
+        text-transform: capitalize;
+        
+    }
+
+    &__card-list {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        gap: 2rem;
+        align-items: flex-start;
+    }
+
+    &__view-more {
+        padding: 1rem;
+        align-self: stretch;
+    }
+}

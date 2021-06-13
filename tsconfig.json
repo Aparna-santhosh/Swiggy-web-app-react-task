@@ -1,0 +1,25 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+      "jsx": "react-jsx",
+      "baseUrl": "src",
+        "declaration": false,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "noEmit": true,
+        "sourceMap": true,
+        "target": "es5",
+        "typeRoots": ["node_modules/@types"],
+        "plugins": [{
+            "name": "typescript-plugin-css-modules",
+            "options": {
+              "customMatcher": "\\.(c|sa|sc)ss$",
+              "classnameTransform": "camelCase"
+            }
+          }]
+    }
+}

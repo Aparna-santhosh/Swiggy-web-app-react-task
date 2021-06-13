@@ -1,0 +1,15 @@
+@import "./styles/reset";
+
+.app-container{
+    display: flex;
+    justify-content: flex-end;
+    padding: 4rem;
+
+}
+
+.main {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
