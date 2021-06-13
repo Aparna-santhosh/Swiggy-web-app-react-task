@@ -34,15 +34,19 @@ export const App: React.FC = () => {
 
     const refs: RefType = {};
 
+    //Fetch json data
     useEffect(() => {
         fetchData("http://cdn.adpushup.com/reactTask.json", setDataStore);
     }, []);
 
+    //scroll into corresponding section when sidebar is clicked
     const handleSidebarClick = useCallback((category) => {
         setSelectedCategory(category);
-        refs[category].current.scrollIntoView();
+        if (refs[category] && refs[category].current)
+            refs[category].current.scrollIntoView();
     }, [refs])
 
+    //set selected category on scroll
     const handleScroll = () => {
         const scrollPosition = window.scrollY + 50;
         Object.entries(refs).forEach(([category, ref]) => {
@@ -59,6 +63,14 @@ export const App: React.FC = () => {
         });
     };
 
+    //scroll to see all section on change category to see all
+    useEffect(() => {
+        if (selectedCategory === CATEGORIES.SEE_ALL) {
+            refs[selectedCategory].current.scrollIntoView();
+        }
+    }, [selectedCategory])
+
+    //Add event listener for scroll
     useEffect(() => {
         if (Object.keys(refs).length) {
             window.addEventListener("scroll", handleScroll);
@@ -68,16 +80,19 @@ export const App: React.FC = () => {
         }
     }, [refs]);
 
+    //get add restaurant data into single array
     const getSeeAllData = useCallback(
         (): FoodInfoType[] =>
             [].concat(...dataStore.map((item) => item.restaurantList)),
         [dataStore]
     );
 
+    //get only on swiggy data
     const getOnlyOnSwiggy = useCallback(() => {
         return getSeeAllData().filter((data) => data.isExlusive);
     }, [dataStore]);
 
+    //get category items to display on side bar
     const getCategoryItems = useCallback(() => {
         const categories = dataStore.map(({ category, restaurantList }) => ({
             category: category,
@@ -97,6 +112,7 @@ export const App: React.FC = () => {
         return completeCategories;
     }, [dataStore]);
 
+    // add ref to the refs object and return it
     const addtoRefList = (
         id: string,
         categoryRef: MutableRefObject<HTMLDivElement>
@@ -105,6 +121,7 @@ export const App: React.FC = () => {
         return categoryRef;
     };
 
+    // returns elements to display according to selected category
     const getListItems = () => {
         if (selectedCategory === CATEGORIES.SEE_ALL) {
             return (
@@ -140,6 +157,7 @@ export const App: React.FC = () => {
     const onlyOnSwiggy = getOnlyOnSwiggy();
     const categoryItems = getCategoryItems();
 
+    //set initial category to first data after getting the response
     useEffect(() => {
         if (!selectedCategory && categoryItems.length > 2) {
             setSelectedCategory(categoryItems[0].category);
